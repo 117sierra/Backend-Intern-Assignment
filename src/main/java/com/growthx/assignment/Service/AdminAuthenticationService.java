@@ -19,7 +19,7 @@ public class AdminAuthenticationService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Admin admin = adminRepository.findByName(username).orElse(null);
+        Admin admin = adminRepository.findByName("admin_"+username).orElse(null);
         if(admin==null){
             return null;
         }

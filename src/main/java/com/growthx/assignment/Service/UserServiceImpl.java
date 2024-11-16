@@ -70,11 +70,8 @@ public class UserServiceImpl implements UserService {
             assignment.setUserName(name);
             assignmentRepository.save(assignment);
             Optional<User> user = userRepository.findByName(name);
-            List<Assignment> assignmentList=null;
-            if(user.get().getTask()==null) {
-                 assignmentList = new ArrayList<>();
-            }
-            assignmentList= user.get().getTask();
+            List<Assignment> assignmentList;
+            assignmentList = user.get().getTask() == null ? new ArrayList<>() : user.get().getTask();
             assignmentList.add(assignment);
             user.get().setTask(assignmentList);
             userRepository.save(user.get());

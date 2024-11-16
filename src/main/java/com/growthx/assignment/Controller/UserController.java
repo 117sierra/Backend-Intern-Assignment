@@ -22,9 +22,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private AdminRepository adminRepository;
-
     @PostMapping("/register")
     public ResponseEntity<APIResponse<Object>> adminRegister(@RequestBody @Validated UserRegistrationDTO userRegistrationDTO){
         return userService.userRegistration(userRegistrationDTO);
@@ -34,7 +31,7 @@ public class UserController {
         return userService.getAllAdmins();
     }
     @PostMapping("/uploadAssignment")
-    public ResponseEntity<APIResponse<Object>> upload(@RequestBody Assignment assignment){
+    public ResponseEntity<APIResponse<Object>> upload(@RequestBody @Validated Assignment assignment){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return userService.uploadAssignment(assignment,authentication.getName());
     }

@@ -23,18 +23,17 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    @Autowired
-//    private UserAuthenticationService userAuthenticationService;
-//
-//    @Autowired
-//    private AdminAuthenticationService adminAuthenticationService;
+    @Autowired
+    private UserAuthenticationService userAuthenticationService;
 
     @Autowired
-    private CustomAuthenticationService customAuthenticationService;
+    private AdminAuthenticationService adminAuthenticationService;
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-       auth.userDetailsService(customAuthenticationService).passwordEncoder(passwordEncoder());  // For admins
+        auth.userDetailsService(userAuthenticationService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(adminAuthenticationService).passwordEncoder(passwordEncoder());
     }
 
     @Override
@@ -49,9 +48,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic()
-                .and()
-                .formLogin()
-                .permitAll()
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(new GlobalExceptionHandler())
