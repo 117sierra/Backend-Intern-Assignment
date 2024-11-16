@@ -29,7 +29,7 @@ public class AdminServiceImpl implements AdminService {
     public ResponseEntity<APIResponse<Object>> adminRegistration(AdminRegisterDTO adminRegisterDTO) {
         try {
             Admin admin = Admin.builder().
-                    name("admin_"+adminRegisterDTO.getName()).
+                    name(adminRegisterDTO.getName()).
                     password(passwordEncoder.encode(adminRegisterDTO.getPassword()))
                     .build();
             adminRepository.save(admin);
