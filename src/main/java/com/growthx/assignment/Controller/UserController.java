@@ -1,13 +1,9 @@
 package com.growthx.assignment.Controller;
 
-import com.growthx.assignment.DTO.AdminRegisterDTO;
 import com.growthx.assignment.DTO.UserRegistrationDTO;
 import com.growthx.assignment.Entity.Assignment;
-import com.growthx.assignment.Repository.AdminRepository;
 import com.growthx.assignment.Service.UserService;
 import com.growthx.assignment.Util.APIResponse;
-import com.growthx.assignment.Util.ResponseStatusEnum;
-import com.growthx.assignment.Util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
