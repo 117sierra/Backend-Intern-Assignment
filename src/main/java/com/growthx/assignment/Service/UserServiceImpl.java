@@ -66,12 +66,12 @@ public class UserServiceImpl implements UserService {
         try {
             List<String> admins = getAdmins();
             Random random = new Random();
-            assignment.setAdminName(admins.get(random.nextInt(admins.size())));
+            assignment.setAdminName(admins.get(random.nextInt(admins.size()))); // randomly an admin will be assigned to the user's task
             assignment.setUserName(name);
             assignmentRepository.save(assignment);
             Optional<User> user = userRepository.findByName(name);
             List<Assignment> assignmentList;
-            assignmentList = user.get().getTask() == null ? new ArrayList<>() : user.get().getTask();
+            assignmentList = user.get().getTask() == null ? new ArrayList<>() : user.get().getTask(); // checks for the first task by the user at that time assignment list will be null
             assignmentList.add(assignment);
             user.get().setTask(assignmentList);
             userRepository.save(user.get());

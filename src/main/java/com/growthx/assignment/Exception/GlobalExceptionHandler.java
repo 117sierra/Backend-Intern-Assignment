@@ -1,11 +1,8 @@
 package com.growthx.assignment.Exception;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.growthx.assignment.Util.APIResponse;
 import com.growthx.assignment.Util.ResponseStatusEnum;
 import com.growthx.assignment.Util.ResponseUtil;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
@@ -25,7 +22,7 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler implements AccessDeniedHandler, AuthenticationEntryPoint {
-
+    // Handles Forbidden Events
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
 
@@ -34,13 +31,14 @@ public class GlobalExceptionHandler implements AccessDeniedHandler, Authenticati
         response.getWriter().write("{\"error\": \"Forbidden\", \"message\": \"You do not have permission to access this resource.\"}");
     }
 
-
+    // Handles UnAuthorized Events
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType("application/json");
         response.getWriter().write("{\"error\": \"Unauthorized\", \"message\": \"" + authException.getMessage() + "\"}");
     }
+    //Handles the Validation Errors
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<APIResponse<Object>> handleValidationException(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();

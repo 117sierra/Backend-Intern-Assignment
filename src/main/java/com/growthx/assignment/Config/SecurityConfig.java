@@ -2,22 +2,16 @@ package com.growthx.assignment.Config;
 
 import com.growthx.assignment.Exception.GlobalExceptionHandler;
 import com.growthx.assignment.Service.AdminAuthenticationService;
-import com.growthx.assignment.Service.CustomAuthenticationService;
 import com.growthx.assignment.Service.UserAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.AccessDeniedHandlerImpl;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -41,9 +35,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**").permitAll()
-                .antMatchers("/user/v1/register").permitAll()
-                .antMatchers("/admin/v1/register").permitAll()
+                .antMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**").permitAll() // swagger uri's have been excluded from the security
+                .antMatchers("/user/v1/register").permitAll()  // open for registration users
+                .antMatchers("/admin/v1/register").permitAll() // open for registration admins
                 .antMatchers("/user/v1/**").hasRole("USER")
                 .antMatchers("/admin/v1/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
@@ -51,8 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .exceptionHandling()
-                .authenticationEntryPoint(new GlobalExceptionHandler())
-                .accessDeniedHandler(new GlobalExceptionHandler());
+                .authenticationEntryPoint(new GlobalExceptionHandler()) // UnAuthorized Handling
+                .accessDeniedHandler(new GlobalExceptionHandler());   // Forbidden Handling
     }
 
     @Bean
