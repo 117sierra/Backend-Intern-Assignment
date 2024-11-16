@@ -41,6 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
+                .antMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**").permitAll()
                 .antMatchers("/user/v1/register").permitAll()
                 .antMatchers("/admin/v1/register").permitAll()
                 .antMatchers("/user/v1/**").hasRole("USER")
