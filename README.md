@@ -40,3 +40,4 @@
 
 2. **Authentication:**
    - Use **Basic Auth** in Postman for authentication while accessing protected endpoints.
+   - Login/Logout endpoint is automatically handled by springboot so there are no such endpoints in controller class of the application.
